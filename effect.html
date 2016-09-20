@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>jquery effect</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
+        }
+
+        .big-blue {
+            width: 200px;
+            height: 200px;
+            background-color: #00f;
+        }
+    </style>
+</head>
+<body>
+    <div id="div"></div>
+    <p>Click anywhere to shake the box.</p>
+    <div id="toggle"></div>
+
+    <div id="scale"></div>
+        <p>Size</p>
+        <div id="size"><span>size</span></div>
+ <p>after size</p>
+   
+    <script src="jquery.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script>
+        $("#div").click(function () {
+            $(this).addClass("big-blue", 1000, "easeOutBounce");
+        });
+        $("#toggle").effect("shake", { direction: "left" });
+
+        //$(document).click(function () {
+        //    $("#scale").effect({ effect: "scale", direction: "horizontal", percent:120 });
+        //});
+        $("#size").click(function () {
+            $(this).effect("size", {
+                to: { width: 200, height: 60 }
+            }, 1000);
+        })
+    </script>
+</body>
+</html>

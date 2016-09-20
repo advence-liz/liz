@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>slect</title>
+    <link rel="jquery-ui.css" />
+    <script src="jquery.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script src="angular.js"></script>
+    <script src="select.js"></script>
+    <style>
+        .select{
+          position:relative;
+          display:inline-block;
+        }
+        .select-arrow {
+            display:inline-block;
+            border-width: 5px;
+            border-bottom-width: 0px;
+            border-color: transparent;
+            border-top-color: #000;
+            border-style:solid;
+            margin-left:-25px;
+            position:relative;
+            z-index:-1;
+        }
+        .select:hover{
+            cursor:help;
+        }
+        .select-menu{
+            display:none;
+            padding:5px;
+            margin:0px;
+            min-width:155px;
+            background:ghostwhite;
+            position:absolute;
+            top:100%;
+            left:0;
+            z-index:99;
+            
+        }
+        .open .select-menu{
+            display:inline-block;
+        }
+        .select-menuitem{
+              list-style:none;
+              border-color:cadetblue;
+              border-style:solid;
+        }
+        .select-menuitem:hover{
+            background-color:rebeccapurple;
+        }
+        .select-input{
+            border-color:rebeccapurple;
+            background-color:transparent;
+            cursor:default;
+        }
+        .none{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <p>For my own slect widget</p>
+    <!--<div class="select select-default">
+        <input class="select-input" />
+        <span class="select-arrow"></span>
+        <ul class="select-menu">
+            <li>select options</li>
+            <li>select options</li>
+            <li>select options</li>
+            <li>select options</li>
+            <li>select options</li>
+        </ul>
+    </div>-->
+    <div id="demoselect"></div>
+    <p>****************************</p>
+    <p>原生select</p>
+    <select>
+        <option>af</option>
+        <option>abc</option>
+        <option>abcd</option>
+        <option>abcde</option>
+        <option>bf</option>
+        <option>bcd</option>
+        <option>bcde</option>
+        <option>bd</option>
+    </select>
+    <script>
+        var ele = $("#demoselect");
+        ele.select();
+    </script>
+</body>
+</html>
