@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery JavaScript Library v1.11.1
  * http://jquery.com/
  *
@@ -4278,14 +4278,20 @@ jQuery.event = {
 		var tmp, events, t, handleObjIn,
 			special, eventHandle, handleObj,
 			handlers, type, namespaces, origType,
-			elemData = jQuery._data( elem );
+			elemData = jQuery._data( elem );//开辟缓存 存储 eventhandle function object  和一些其他信息
 
 		// Don't attach events to noData or text/comment nodes (but allow plain objects)
 		if ( !elemData ) {
 			return;
 		}
 
-		// Caller can pass in an object of custom data in lieu of the handler
+	    // Caller can pass in an object of custom data in lieu of the handler
+		//function handler() { console.log("66666") }
+		//var cdata = {};
+		//cdata.handler = handler
+		//cdata.selector = "td"
+		//$($0).on('click', cdata);
+		//$($0).on('click', 'td', handler);
 		if ( handler.handler ) {
 			handleObjIn = handler;
 			handler = handleObjIn.handler;
@@ -4301,8 +4307,8 @@ jQuery.event = {
 		if ( !(events = elemData.events) ) {
 			events = elemData.events = {};
 		}
-		if ( !(eventHandle = elemData.handle) ) {
-			eventHandle = elemData.handle = function( e ) {
+		if ( !(eventHandle = elemData.handle) ) {//将事件handlers 存在缓存中dom元素对应的data 中
+			eventHandle = elemData.handle = function( e ) {//此函数相当一个bridge
 				// Discard the second event of a jQuery.event.trigger() and
 				// when an event is called after a page has unloaded
 				return typeof jQuery !== strundefined && (!e || jQuery.event.triggered !== e.type) ?
@@ -4356,7 +4362,7 @@ jQuery.event = {
 				if ( !special.setup || special.setup.call( elem, data, namespaces, eventHandle ) === false ) {
 					// Bind the global event handler to the element
 					if ( elem.addEventListener ) {
-						elem.addEventListener( type, eventHandle, false );
+						elem.addEventListener( type, eventHandle, false );//eventHandle 事件处理函数（bridge功能）
 
 					} else if ( elem.attachEvent ) {
 						elem.attachEvent( "on" + type, eventHandle );
@@ -4602,12 +4608,12 @@ jQuery.event = {
 	dispatch: function( event ) {
 
 		// Make a writable jQuery.Event from the native event object
-		event = jQuery.event.fix( event );
+	    event = jQuery.event.fix(event);//fix中调用	event = new jQuery.Event( originalEvent );扩展原生的事件对象//fix的主要目的还是处理各种兼容
 
 		var i, ret, handleObj, matched, j,
 			handlerQueue = [],
 			args = slice.call( arguments ),
-			handlers = ( jQuery._data( this, "events" ) || {} )[ event.type ] || [],
+			handlers = ( jQuery._data( this, "events" ) || {} )[ event.type ] || [],//重jquery缓存中获取 事件 handlers
 			special = jQuery.event.special[ event.type ] || {};
 
 		// Use the fix-ed jQuery.Event rather than the (read-only) native event
@@ -4620,7 +4626,7 @@ jQuery.event = {
 		}
 
 		// Determine handlers
-		handlerQueue = jQuery.event.handlers.call( this, event, handlers );
+		handlerQueue = jQuery.event.handlers.call( this, event, handlers );//获取要触发的事件handlers
 
 		// Run delegates first; they may want to stop propagation beneath us
 		i = 0;
@@ -4658,7 +4664,7 @@ jQuery.event = {
 		return event.result;
 	},
 
-	handlers: function( event, handlers ) {
+	handlers: function( event, handlers ) {//返回匹配类型的 hander array
 		var sel, handleObj, matches, i,
 			handlerQueue = [],
 			delegateCount = handlers.delegateCount,
@@ -4905,7 +4911,7 @@ jQuery.removeEvent = document.removeEventListener ?
 		}
 	};
 
-jQuery.Event = function( src, props ) {
+jQuery.Event = function( src, props ) {//src 
 	// Allow instantiation without the 'new' keyword
 	if ( !(this instanceof jQuery.Event) ) {
 		return new jQuery.Event( src, props );
@@ -5165,7 +5171,7 @@ if ( !support.focusinBubbles ) {
 	});
 }
 
-jQuery.fn.extend({
+jQuery.fn.extend({//on
 
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var type, origFn;

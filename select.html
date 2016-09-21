@@ -25,9 +25,7 @@
             position:relative;
             z-index:-1;
         }
-        .select:hover{
-            cursor:help;
-        }
+       
         .select-menu{
             display:none;
             padding:5px;
@@ -55,6 +53,18 @@
             border-color:rebeccapurple;
             background-color:transparent;
             cursor:default;
+        }
+        .select-div:after{
+            content:"";
+            border-width: 5px;
+            border-bottom-width: 0px;
+            border-color: transparent;
+            border-top-color: #000;
+            border-style:solid;
+            position:relative;
+            z-index:-1;
+            float:right;
+            bottom:10px;
         }
         .none{
             display:none;

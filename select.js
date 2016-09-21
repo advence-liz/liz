@@ -22,7 +22,6 @@
         _create: function () {
             this.mouseHandled = false;
             this.element.addClass("select select-default");
-
             if (this.options.disabled) {
                 this.element
                     .addClass("ui-state-disabled")
@@ -45,6 +44,7 @@
                     //setTimeout((function () { this.element.toggleClass("open", false) }).bind(this));
                 },
                 "input .select-input": function (e) {
+                    console.log("input");
                     var self = this;
                     var searchText = this.input.val();
                     this.element.toggleClass("open", true);//当输入时打开dropdown menu
@@ -65,8 +65,27 @@
 
 
                 },
+                "keydown .select-input":function(e){
+                    console.log("keydown");
+                    var items = this.menuitems.not(".none");//满足过滤条件的items集合
+                    try{
+                        switch (e.which) {
+                            case $.ui.keyCode.ENTER:
+                                items[0].click();
+                                break;
+                            case $.ui.keyCode.DOWN:
+
+
+                            default:
+
+                        }
+                    } catch (ex) {
+                        console.error(ex.message);
+                    }
+                 
+                },
                 "mouseenter .select-menu": function (e) {
-                    this.mouseHandled = true;
+                    this.mouseHandled = true;//此处的目的是 dropdownmenu 消失的事件注册在 input 的blur 上 而当点击 select-menuitem时 先触发blur 事件 select-menu 隐藏 这样就不会触发 select-menuitem 的click（因为click 得满足mousedown 和mouseup） 事件
                     //debugger;
                 },
                 "mouseleave .select-menu": function (e) {
@@ -90,8 +109,10 @@
         },
         _createContent: function () {
             var templateMenu = '';
-            var templateStr = '<input class="select-input"></input>' +
-                              '<span class="select-arrow"></span>';
+            var templateStr = '<div class="select-div">' +
+                              '<input class="select-input"></input>' +
+                              //'<span class="select-arrow"></span>' +
+                              '</div>';
             templateMenu = this._createDropdownMenu();
             templateStr += templateMenu;
             this.element.append(templateStr);
@@ -117,7 +138,6 @@
 
             })
         }
-
 
     })
 }(window, undefined)
