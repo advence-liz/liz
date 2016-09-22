@@ -4,15 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <title>slect</title>
-    <link rel="jquery-ui.css" />
+    <link href="jquery-ui.css" rel="stylesheet" />
+    <link href="auiframework.css" rel="stylesheet" />
     <script src="jquery.js"></script>
     <script src="jquery-ui.js"></script>
     <script src="angular.js"></script>
     <script src="select.js"></script>
+   
     <style>
         .select{
           position:relative;
-          display:inline-block;
         }
         .select-arrow {
             display:inline-block;
@@ -34,6 +35,7 @@
             background:ghostwhite;
             position:absolute;
             top:100%;
+             width:100%;
             left:0;
             z-index:99;
             
@@ -45,6 +47,7 @@
               list-style:none;
               border-color:cadetblue;
               border-style:solid;
+             
         }
         .select-menuitem:hover{
             background-color:rebeccapurple;
@@ -52,7 +55,10 @@
         .select-input{
             border-color:rebeccapurple;
             background-color:transparent;
+            width:100%;
             cursor:default;
+            position:relative; /*叠成上下文为了比arrow 高一层从点击不到 arrow*/
+            z-index:1;
         }
         .select-div:after{
             content:"";
@@ -61,10 +67,11 @@
             border-color: transparent;
             border-top-color: #000;
             border-style:solid;
-            position:relative;
-            z-index:-1;
-            float:right;
-            bottom:10px;
+            position:absolute;
+            top:10px;
+            right:10px;
+            z-index:0;
+             
         }
         .none{
             display:none;
@@ -84,7 +91,12 @@
             <li>select options</li>
         </ul>
     </div>-->
-    <div id="demoselect"></div>
+    <div class="row">
+        <div class="col-md-3">
+            <div id="demoselect"></div>
+        </div>
+    </div>
+  
     <p>****************************</p>
     <p>原生select</p>
     <select>
