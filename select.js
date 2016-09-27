@@ -1,7 +1,9 @@
 // JavaScript source code
 //<div class="select select-default">
+//      <div class="select-div">
 //      <input />
 //      <span class="select-arrow"></span>
+//      </div>
 //      <ul class="select-menu">
 //          <li class="select-menuitem">select options</li>
 //          <li class="select-menuitem">select options</li>
@@ -15,6 +17,7 @@
     $.widget("aui.select", {
         version: "1.0",
         options: {
+            theme:'select-default',
             placeholder: 'please select one',
             selectedIndex: -1,
             items: [{ key: "asdf", value: 0 }, { key: "qwer", value: 1 }, { key: "zxcv", value: 2 }, { key: "hjkl", value: 3 }, { key: "uiop", value: 4 }, { key: "vbnm", value: 5 }]
