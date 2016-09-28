@@ -9,7 +9,7 @@
 >>      VS Code supports linters through extensions. 
 >>      Linters provide warnings, errors, and light bulb actions.
 >> 具体步骤
->>>  1 安装 eslint(前提示你安装了node)
+>>>  1 安装 eslint(前提是你安装了node)
 >>>
 >>>```bash
 >>>$ npm install -g eslint
