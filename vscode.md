@@ -4,7 +4,7 @@
 智能提示less编写，集成git，显示gulp task（还有许多我没发现的）。
 所有的用法都可以参见<a href="https://code.visualstudio.com/docs/editor/codebasics">vscode Docs<a/>
 
-> ## 添加Linters（可以在编辑js时检查语法错误）
+> ## 添加Linters（可以在编辑js时检查语法错误和格式规范）
 >>      A linter is a tool that provides warnings for suspicious looking code.
 >>      VS Code supports linters through extensions. 
 >>      Linters provide warnings, errors, and light bulb actions.
