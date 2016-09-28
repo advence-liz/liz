@@ -5,9 +5,8 @@
 所有的用法都可以参见<a href="https://code.visualstudio.com/docs/editor/codebasics">vscode Docs<a/>
 
 > ## 添加Linters
-
-       A linter is a tool that provides warnings for suspicious looking code. VS Code supports linters through extensions. 
-     Linters provide warnings, errors, and light bulb actions.
+>>       A linter is a tool that provides warnings for suspicious looking code. VS Code supports linters through extensions. 
+>>      Linters provide warnings, errors, and light bulb actions.
 >> 具体步骤
 >>>  1 安装 eslint(前提示你安装了node)
 >>>
