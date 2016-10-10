@@ -17,9 +17,9 @@
     $.widget("aui.select", {
         version: "1.0",
         options: {
-            theme:'select-default',
+            theme: 'select-default',
             placeholder: 'please select one',
-            selectedIndex: -1,
+            selectedIndex: -1,//閫氳繃selectedIndex 鍒ゆ柇鍝釜鍏冪礌琚�変腑锛屽綋鐐瑰嚮dropdownmenu 鏃舵洿鏂皊electedIndex
             items: [{ key: "asdf", value: 0 }, { key: "qwer", value: 1 }, { key: "zxcv", value: 2 }, { key: "hjkl", value: 3 }, { key: "uiop", value: 4 }, { key: "vbnm", value: 5 }]
         },
         _create: function () {
@@ -32,7 +32,7 @@
             }
             this._createContent();
             this.input = $(".select-input", this.element)
-             .attr('placeholder', this.options.placeholder);
+                .attr('placeholder', this.options.placeholder);
             this.dropdownMenu = this.element.find('.select-menu');
             this.menuitems = this.element.find('.select-menuitem');
             this._on({
@@ -46,11 +46,11 @@
                     }
                     //setTimeout((function () { this.element.toggleClass("open", false) }).bind(this));
                 },
-                "input .select-input": function (e) {
-                    console.log("input");
+                "input .select-input": function (e) {//filter logic base on control menuitem visible or not 
+                  
                     var self = this;
                     var searchText = this.input.val();
-                    this.element.toggleClass("open", true);//当输入时打开dropdown menu
+                    this.element.toggleClass("open", true);//when input open the dropdown menu
                     this.options.selectedIndex = -1;
                     if (searchText) {
                         this.options.items.filter(function (ele, index, arr) {
@@ -68,16 +68,16 @@
 
 
                 },
-                "keydown .select-input":function(e){
-                    console.log("keydown");
-                    var items = this.menuitems.not(".none");//满足过滤条件的items集合
-                    try{
+                "keydown .select-input": function (e) {
+                    // console.log("keydown");
+                    var items = this.menuitems.not(".none");//锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷items锟斤拷锟斤拷
+                    try {
                         switch (e.which) {
                             case $.ui.keyCode.ENTER:
                                 items[0].click();
                                 break;
                             case $.ui.keyCode.DOWN:
-
+                                break;
 
                             default:
 
@@ -85,21 +85,21 @@
                     } catch (ex) {
                         console.error(ex.message);
                     }
-                 
+
                 },
-                "mouseenter .select-menu": function (e) {
-                    this.mouseHandled = true;//此处的目的是 dropdownmenu 消失的事件注册在 input 的blur 上 而当点击 select-menuitem时 先触发blur 事件 select-menu 隐藏 这样就不会触发 select-menuitem 的click（因为click 得满足mousedown 和mouseup） 事件
-                    //debugger;
-                },
-                "mouseleave .select-menu": function (e) {
-                    this.mouseHandled = false;
-                }
-                ,
-                "click .select-menuitem": function (e) {
+                // "mouseenter .select-menu": function (e) {//mouseenter->blur(input)->click(dropdown)
+                //     this.mouseHandled = true;//when trigger input blur, dropdown will close ,but dropdown's click won't trigger(trigger click two conditions must be met mousedown and mouseup)
+                //     //debugger;
+                // },
+                // "mouseleave .select-menu": function (e) {
+                //     this.mouseHandled = false;
+                // }
+                // ,
+                "mousedown .select-menuitem": function (e) {
                     var index = $(e.target).index();
                     var itemValue = this.options.items[index].key;
                     this.input.val(itemValue);
-                    this.element.toggleClass("open", false);//隐藏后会自动触发 mouseleave
+                    this.element.toggleClass("open", false);// close dropdownMenu  which action will trigger mouseleave event
                     this.options.selectedIndex = index;
                     this.input.focus();
 
@@ -110,12 +110,29 @@
 
 
         },
+        _setOption: function (key, value) {
+            $.Widget.prototype._setOption.apply(this, arguments);
+            switch (key) {
+                case 'items': {
+                    $('.select-menu', this.element).replaceWith(this._createDropdownMenu());
+                    this.refresh(true);
+                    break;
+                }
+                case 'selectedIndex': {
+                    this.refresh();
+                    break;
+                }
+
+
+            }
+
+        },
         _createContent: function () {
             var templateMenu = '';
             var templateStr = '<div class="select-div">' +
-                              '<input class="select-input"></input>' +
-                              //'<span class="select-arrow"></span>' +
-                              '</div>';
+                '<input class="select-input"></input>' +
+                //'<span class="select-arrow"></span>' +
+                '</div>';
             templateMenu = this._createDropdownMenu();
             templateStr += templateMenu;
             this.element.append(templateStr);
@@ -123,18 +140,29 @@
         },
         _createDropdownMenu: function (items) {
             var items = items || this.options.items;
-            var templateLi = '';
-            var templateMenu = '';
-            for (var i in items) {
-                templateLi += '<li class="select-menuitem" index=' + i + '>' + items[i].key + '</li>';
+            var templateMenu = [];
+
+            for (var i = items.length; i--;) {
+                templateMenu.unshift('<li class="select-menuitem" index=' + i + '>' + items[i].key + '</li>');
             }
-            templateMenu = '<ul class="select-menu">' + templateLi + '</ul>';
-            return templateMenu;
+            // templateMenu.reverse();
+            templateMenu.unshift('<ul class="select-menu">');
+            templateMenu.push('</ul>');
+            return templateMenu.join(' ');
         },
-        refresh: function () {
-            if (this.options.selectedIndex > -1) {
-                this.input.val(this.options.items[this.options.selectedIndex].key)
+        refresh: function (deep) {
+            if (deep) {
+                this.options.selectedIndex = -1;
+                this.dropdownMenu = this.element.find('.select-menu');
+                this.menuitems = this.element.find('.select-menuitem');
             }
+           try{
+               this.input.val(this.options.items[this.options.selectedIndex].key)
+           }catch(ex){
+               this.input.val('');
+           }
+                
+            
         },
         _filterItem: function () {
             this.options.items.filter(function () {
@@ -143,4 +171,4 @@
         }
 
     })
-}(window, undefined)
+} (window, undefined)

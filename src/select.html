@@ -10,8 +10,8 @@
     <script src="../dist/js/jquery.js"></script>
     <script src="../dist/js/jquery-ui.js"></script>
     <script src="../dist/js/angular.js"></script>
-    <script src="../dist/js/widget.js"></script>
-    <!--<script src="js/select.js"></script>-->
+    <!--<script src="../dist/js/widget.js"></script>-->
+    <script src="js/select.js"></script>
    
     <style>
        
@@ -34,6 +34,9 @@
         <div class="col-md-3">
             <div id="demoselect"></div>
         </div>
+         <div class="col-md-3">
+            <div id="demoselect1"></div>
+        </div>
     </div>
   
     <p>****************************</p>
@@ -48,9 +51,17 @@
         <option>bcde</option>
         <option>bd</option>
     </select>
+    <button type="button" id="btn" class="btn btn-default">改变items</button>
+     <button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
     <script>
         var ele = $("#demoselect");
         ele.select();
+         var ele1 = $("#demoselect1");
+        ele1.select();
+       var arr=  [{ key: "1234", value: 0 }, { key: "5678", value: 1 }, { key: "zxcv", value: 2 }, { key: "hjkl", value: 3 }, { key: "uiop", value: 4 }, { key: "vbnm", value: 5 }];
+
+   $("#btn").click(function(){ ele.select("option","items",arr)})
+   $("#btn1").click(function(){ ele.select("option","selectedIndex",1)})
     </script>
 </body>
 </html>
