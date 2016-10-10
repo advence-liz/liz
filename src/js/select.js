@@ -74,7 +74,7 @@
                     try {
                         switch (e.which) {
                             case $.ui.keyCode.ENTER:
-                                items[0].click();
+                                $(items[0]).mousedown();
                                 break;
                             case $.ui.keyCode.DOWN:
                                 break;
