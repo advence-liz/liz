@@ -35,23 +35,26 @@
                 .attr('placeholder', this.options.placeholder);
             this.dropdownMenu = this.element.find('.select-menu');
             this.menuitems = this.element.find('.select-menuitem');
+            this.pendingSelectedIndex=-1;
             this._on({
                 "click .select-input": function (e) {
-                    this.element.toggleClass("open");
-                    this.inputFocused = true;
+                    this._toggle();
+                   
+                    
                 },
                 "blur .select-input": function (e) {
-                    if (!this.mouseHandled) {
-                        this.element.toggleClass("open", false);
-                    }
-                    //setTimeout((function () { this.element.toggleClass("open", false) }).bind(this));
+                    // if (!this.mouseHandled) 
+                    this._toggle(false);
+                     
                 },
                 "input .select-input": function (e) {//filter logic base on control menuitem visible or not 
-                  
-                    var self = this;
-                    var searchText = this.input.val();
-                    this.element.toggleClass("open", true);//when input open the dropdown menu
+
+                    var self = this,
+                        searchText = this.input.val();
+                    this.menuitems.removeClass("select");//当输入时去掉选择状态
                     this.options.selectedIndex = -1;
+                    this.pendingSelectedIndex=-1;
+                    this._toggle(true);//when input open the dropdown menu
                     if (searchText) {
                         this.options.items.filter(function (ele, index, arr) {
                             var isContain = ele.key.indexOf(searchText) > -1
@@ -68,20 +71,43 @@
 
 
                 },
-                "keydown .select-input": function (e) {
+                "keydown .select-input": function (e) {//this.pendingSelectedIndex 只有在dropdown打开的时候有效（基本就是仅仅在此function中有效因为关闭后会清空）
                     // console.log("keydown");
-                    var items = this.menuitems.not(".none");//��������������items����
+                    var items = this.menuitems.not(".none"),//满足过滤条件的menuitems集合 全部menuitems 集合 this.menuitems
+                        index = this.pendingSelectedIndex>-1?this.pendingSelectedIndex: this.options.selectedIndex,
+                        length = items.length;
+
                     try {
                         switch (e.which) {
                             case $.ui.keyCode.ENTER:
-                                $(items[0]).mousedown();
+                                if (this.pendingSelectedIndex > -1) {
+                                    $(items[this.pendingSelectedIndex]).mousedown();
+
+                                } else {
+                                    $(items[0]).mousedown();
+                                }
                                 break;
                             case $.ui.keyCode.DOWN:
+                            case $.ui.keyCode.RIGHT:
+                                this._toggle(true);
+                                this.menuitems.toggleClass('select', false); //当 up or down 时清空原来的选中状态
+                                index++;
+                                this.pendingSelectedIndex = index % length;
+                                e.preventDefault()
                                 break;
-
-                            default:
-
+                            case $.ui.keyCode.UP:
+                            case $.ui.keyCode.LEFT:
+                                this._toggle(true);
+                                this.menuitems.toggleClass('select', false); //当 up or down 时清空原来的选中状态
+                                index--;
+                                if (index < 0) index += length;
+                                this.pendingSelectedIndex = index % length;
+                                e.preventDefault()
+                                break;
                         }
+                    
+                     
+                       $(items[this.pendingSelectedIndex]).toggleClass('select',true); 
                     } catch (ex) {
                         console.error(ex.message);
                     }
@@ -96,10 +122,18 @@
                 // }
                 // ,
                 "mousedown .select-menuitem": function (e) {
-                    var index = $(e.target).index();
+                    var index =  $(e.target).index();
                     var itemValue = this.options.items[index].key;
+                    var currentItem = $(this.menuitems[index]);
+                    // try {
+                    //     var oldItem = $(this.menuitems[this.options.selectedIndex]);
+                    //     oldItem.toggleClass('select', false);
+                    // } catch (ex) {
+
+                    // }
                     this.input.val(itemValue);
-                    this.element.toggleClass("open", false);// close dropdownMenu  which action will trigger mouseleave event
+                    currentItem.toggleClass("select", true);
+                    this._toggle(false);// close dropdownMenu  which action will trigger mouseleave event
                     this.options.selectedIndex = index;
                     this.input.focus();
 
@@ -156,18 +190,43 @@
                 this.dropdownMenu = this.element.find('.select-menu');
                 this.menuitems = this.element.find('.select-menuitem');
             }
-           try{
-               this.input.val(this.options.items[this.options.selectedIndex].key)
-           }catch(ex){
-               this.input.val('');
-           }
-                
-            
+            try {
+                this.input.val(this.options.items[this.options.selectedIndex].key)
+            } catch (ex) {
+                this.input.val('');
+            }
+
+
+        },
+        _toggle: function (toggle) {
+            if (toggle === undefined) //shuffle arguments
+                this.element.toggleClass("open");
+            else {
+
+                if (toggle)
+                    this.element.toggleClass("open", true);
+                else
+                    this.element.toggleClass("open", false);
+
+            }
+            // 当open dropdownmenu 时给选择元素添加 .select 
+            this.pendingSelectedIndex=-1;
+            this.menuitems.removeClass("select");
+            $(this.menuitems[this.options.selectedIndex]).toggleClass('select', true);
+
         },
         _filterItem: function () {
             this.options.items.filter(function () {
 
             })
+        },
+        _pendingInde:function(orz){//orz 应为bool true set function  false 为 reset function
+           var items = this.menuitems.not(".none");//满足添加的menuitems 元素
+            if(orz){
+
+            }else{
+
+            }
         }
 
     })
