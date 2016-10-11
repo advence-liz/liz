@@ -12,6 +12,10 @@
      $ npm install
      ```
      执行此命令后下载npm，gulp所需插件（目前主要是下载gulp插件）
+   ```bash
+      $ gulp
+   ```    
+     执行此命令后会生成dist文件夹并拷贝所需文件到其下，编译less 文件合并 js 文件
 
 ## 控件列表
 - select 控件 主要实现在 select.js selcet.html 依赖 jquery jquery-ui 

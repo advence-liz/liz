@@ -2,7 +2,7 @@
 //<div class="select select-default">
 //      <div class="select-div">
 //      <input />
-//      <span class="select-arrow"></span>
+//     
 //      </div>
 //      <ul class="select-menu">
 //          <li class="select-menuitem">select options</li>
@@ -52,8 +52,8 @@
                     var self = this,
                         searchText = this.input.val();
                     this.menuitems.removeClass("select");//当输入时去掉选择状态
-                    this.options.selectedIndex = -1;
-                    this.pendingSelectedIndex=-1;
+                    this.options.selectedIndex = -1;//selectedIndex 输入时重置
+                    this.pendingSelectedIndex=-1;//重置 this.pendingSelectedIndex
                     this._toggle(true);//when input open the dropdown menu
                     if (searchText) {
                         this.options.items.filter(function (ele, index, arr) {
@@ -71,7 +71,7 @@
 
 
                 },
-                "keydown .select-input": function (e) {//this.pendingSelectedIndex 只有在dropdown打开的时候有效（基本就是仅仅在此function中有效因为关闭后会清空）
+                "keydown .select-input": function (e) {//this.pendingSelectedIndex 生命周期仅为一次dropdownmenu 打开的过程中（如过打开过程中执行输入则重置）
                     // console.log("keydown");
                     var items = this.menuitems.not(".none"),//满足过滤条件的menuitems集合 全部menuitems 集合 this.menuitems
                         index = this.pendingSelectedIndex>-1?this.pendingSelectedIndex: this.options.selectedIndex,
