@@ -17,7 +17,7 @@
     $.widget("aui.select", {
         version: "1.0",
         options: {
-            theme: 'select-default',
+            theme: 'select-default',//可以根据不同主题加不同的样式控制
             placeholder: 'please select one',
             selectedIndex: -1,//通过selectedIndex 判断哪个元素被选中，当点击dropdownmenu 时更新selectedIndex
             items: [{ key: "asdf", value: 0 }, { key: "qwer", value: 1 }, { key: "zxcv", value: 2 }, { key: "hjkl", value: 3 }, { key: "uiop", value: 4 }, { key: "vbnm", value: 5 }]
@@ -56,8 +56,8 @@
                     this.pendingSelectedIndex=-1;//重置 this.pendingSelectedIndex
                     this._toggle(true);//when input open the dropdown menu
                     if (searchText) {
-                        this.options.items.filter(function (ele, index, arr) {
-                            var isContain = ele.key.indexOf(searchText) > -1
+                        this.options.items.filter(function (ele, index, arr) {//filter logic 主要根据显隐控制
+                            var isContain = ele.key.indexOf(searchText.trim()) > -1
                             if (isContain) {
                                 $(self.menuitems[index]).toggleClass("none", false);
                             } else {
@@ -70,10 +70,10 @@
                     }
 
 
-                },
+                },                                     //pendingSelectedIndex 只针对 filtered 集合 
                 "keydown .select-input": function (e) {//this.pendingSelectedIndex 生命周期仅为一次dropdownmenu 打开的过程中（如过打开过程中执行输入则重置）
                     // console.log("keydown");
-                    var items = this.menuitems.not(".none"),//满足过滤条件的menuitems集合 全部menuitems 集合 this.menuitems
+                    var items = this.menuitems.not(".none"),//items 满足过滤条件的menuitems集合 全部menuitems 集合 this.menuitems
                         index = this.pendingSelectedIndex>-1?this.pendingSelectedIndex: this.options.selectedIndex,
                         length = items.length;
 
@@ -122,7 +122,7 @@
                 // }
                 // ,
                 "mousedown .select-menuitem": function (e) {
-                    var index =  $(e.target).index();
+                    var index =  $(e.target).index();//这里的index 是针对全部 menuitems  而不是 filtered
                     var itemValue = this.options.items[index].key;
                     var currentItem = $(this.menuitems[index]);
                     // try {
@@ -209,7 +209,7 @@
                     this.element.toggleClass("open", false);
 
             }
-            // 当open dropdownmenu 时给选择元素添加 .select 
+            // 当open dropdownmenu 时给选择元素添加 .select 并且无论open or close 都重置选择状态和 pendingSelectedIndex（其他重置 pendingSelectedIndex的情况为 “输入”）
             this.pendingSelectedIndex=-1;
             this.menuitems.removeClass("select");
             $(this.menuitems[this.options.selectedIndex]).toggleClass('select', true);
