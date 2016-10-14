@@ -23,7 +23,7 @@
             items: [{ key: "asdf", value: 0 }, { key: "qwer", value: 1 }, { key: "zxcv", value: 2 }, { key: "hjkl", value: 3 }, { key: "uiop", value: 4 }, { key: "vbnm", value: 5 }]
         },
         _create: function () {
-            this.mouseHandled = false;
+            this.mouseHandled = false;//no ues
             this.element.addClass("select select-default");
             if (this.options.disabled) {
                 this.element
@@ -177,9 +177,9 @@
             var templateMenu = [];
 
             for (var i = items.length; i--;) {
-                templateMenu.unshift('<li class="select-menuitem" index=' + i + '>' + items[i].key + '</li>');
+                templateMenu.push('<li class="select-menuitem" index=' + i + '>' + items[i].key + '</li>');
             }
-            // templateMenu.reverse();
+            templateMenu.reverse();
             templateMenu.unshift('<ul class="select-menu">');
             templateMenu.push('</ul>');
             return templateMenu.join(' ');

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>slect</title>
+    <link href="../dist/css/jquery-ui.css" rel="stylesheet" />
+    <link href="../dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../dist/css/widget.css" rel="stylesheet" />
+    <script src="../dist/js/jquery.js"></script>
+    <script src="../dist/js/jquery-ui.js"></script>
+    <script src="../dist/js/angular.js"></script>
+    <!--<script src="../dist/js/widget.js"></script>-->
+    <script src="js/page.js"></script>
+   
+    <style>
+        .page{
+
+        }
+        .page-item{
+         
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+    <h1>For page widget</p>
+    
+  <div class="row">
+	<div class="col-md-12">
+		<h2>Demo</h2>
+		<!--<div class="page">
+            <button class="page-item page-prearrow btn-default btn" index><</button>
+			<button class="page-item btn-default btn" index>1</button>
+            <button class="page-item page-headomit btn-default btn">...</button>
+			<button class="page-item btn-default btn"index>2</button>
+			<button class="page-item btn-default btn"index>3</button>
+			<button class="page-item btn-default btn"index>4</button>
+			<button class="page-item btn-default btn"index>5</button>
+			<button class="page-item btn-default btn"index>6</button>
+			<button class="page-item btn-default btn"index>7</button>
+			<button class="page-item btn-default btn"index>8</button>
+			<button class="page-item btn-default btn"index>9</button>
+            <button class="page-item page-tailomit btn-default btn">...</button>
+			<button class="page-item btn-default btn"index>10</button>
+            <button class="page-item page-endarrow btn-default btn" index>></button>
+		</div>-->
+        <div id='page'></div>
+
+	</div>
+</div>
+  
+    
+    <button type="button" id="btn" class="btn btn-default"></button>
+     <button type="button" id="btn1" class="btn btn-default"></button>
+    </div>
+    <script>
+       var ele=$("#page");
+       ele.page();
+    </script>
+</body>
+</html>
