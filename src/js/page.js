@@ -77,7 +77,7 @@
             selectedPage: 1,
             pageCount: 20,
             displayCount: 9,
-            selectedPageChange: function (event, data) {//$(:page).on(page:selectedPageChange,function(event,data){})
+            selectedPageChange: function (event, data) {//$(':page').on(page:selectedPageChange,function(event,data){})
                 //this 为控件所在DOM 元素 
             }
         },
@@ -146,8 +146,8 @@
             var index = this.options.selectedPage,//默认值为1
                 pageCount = this.options.pageCount,
                 displayCount = this.options.displayCount,
-                isOdd=displayCount%2?true:false,//是否为奇数
-                validLength = displayCount - 3,//除去开会和结尾其他要显示的长度
+                isOdd = displayCount % 2 ? true : false,//是否为奇数（当有两个省略时判断如何控制元素显隐）
+                validLength = displayCount - 3,//除去开会和结尾（page-index）和一个...(page-omit) 即变化的 page-index 的有效长度
                 halfLength = Math.floor(validLength / 2),
                 preVisible = !!(index > validLength),//如果index 大于validLength 隐藏 prearrow
                 endVisible = !!(index <= pageCount - validLength);//如果index 大于 displayCount - validLength 隐藏 endarrow
@@ -161,8 +161,8 @@
                 }
 
                 if (preVisible && endVisible) {//[1]...-------validLength-------...[20]
-                    var endIndex=index+halfLength;
-                    !isOdd&&endIndex++;
+                    var endIndex = index + halfLength;
+                    !isOdd && endIndex++;
                     curindex > index - halfLength && curindex < endIndex && $(element).toggleClass('none', false) || $(element).toggleClass('none', true);
                 } else if (endVisible) {//因为索引从1开始 [1]validLength-----------------...[20]
                     curindex -= 1;
