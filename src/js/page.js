@@ -72,10 +72,14 @@
     $.widget("aui.page", {
         version: "1.0",
         options: {
+            widgetEventPrefix: 'page:',
             theme: 'page-default',
             selectedPage: 1,
             pageCount: 20,
-            displayCount: 9
+            displayCount: 9,
+            selectedPageChange: function (event, data) {//$(:page).on(page:selectedPageChange,function(event,data){})
+                //this 为控件所在DOM 元素 
+            }
         },
         _create: function () {
             this.element.addClass("page page-default");
@@ -90,7 +94,7 @@
             this._on({
                 "click .page-index": function (event) {
                     var index = parseInt(event.target.textContent);
-                    this._toggleSelect(this.options.selectedPage-1,index-1);
+                    this._toggleSelect(this.options.selectedPage - 1);
                     this.options.selectedPage = index;
                     this._selectedPageChange();
                 },
@@ -101,7 +105,7 @@
                     }
                     this.options.selectedPage -= 1;
                     this._selectedPageChange();
-                    this._toggleSelect(this.options.selectedPage,this.options.selectedPage-1);
+                    this._toggleSelect(this.options.selectedPage);
                 },
                 "click .page-endarrow": function (event) {
                     if (this.options.selectedPage == this.options.pageCount) {
@@ -109,40 +113,44 @@
                     }
                     this.options.selectedPage += 1;
                     this._selectedPageChange();
-                    this._toggleSelect(this.options.selectedPage-2,this.options.selectedPage-1);
+                    this._toggleSelect(this.options.selectedPage - 2);
                 }
             })
-
+            //init
+            this._selectedPageChange();
         },
         _createContent: function () {
             var domStr = [],
                 pageitems = this.pageItemInstance.getItems();//tmp var 
-
-            for (var i = pageitems.length; i--;) {
-                switch (pageitems[i].type) {
-                    case 'item':
-                        domStr.push('<button class="page-item page-index btn-default btn"' + 'index="' + pageitems[i].display + '">' + pageitems[i].display + '</button>')
-                        break;
-                    case 'omit':
-                        domStr.push('<button class="page-item page-omit btn-default btn">...</button>');
-                        break;
-                    case 'arrow':
-                        domStr.push('<button class="page-item btn-default btn ' + pageitems[i].class + '">' + pageitems[i].display + '</button>')
-                        break;
+            try {
+                for (var i = pageitems.length; i--;) {
+                    switch (pageitems[i].type) {
+                        case 'item':
+                            domStr.push('<button class="page-item page-index btn-default btn"' + 'index="' + pageitems[i].display + '">' + pageitems[i].display + '</button>')
+                            break;
+                        case 'omit':
+                            domStr.push('<button class="page-item page-omit btn-default btn">...</button>');
+                            break;
+                        case 'arrow':
+                            domStr.push('<button class="page-item btn-default btn ' + pageitems[i].class + '">' + pageitems[i].display + '</button>')
+                            break;
+                    }
                 }
+            } catch (ex) {
+                console.log('create content failed');
             }
             domStr.reverse();
-
             this.element.append(domStr.join(' '));
         },
         _selectedPageChange: function () {
             var index = this.options.selectedPage,//默认值为1
                 pageCount = this.options.pageCount,
                 displayCount = this.options.displayCount,
-                validLength = displayCount - 2,//除去开会和结尾其他要显示的长度
+                isOdd=displayCount%2?true:false,//是否为奇数
+                validLength = displayCount - 3,//除去开会和结尾其他要显示的长度
                 halfLength = Math.floor(validLength / 2),
                 preVisible = !!(index > validLength),//如果index 大于validLength 隐藏 prearrow
-                endVisible = !!(index < pageCount - validLength);//如果index 大于 displayCount - validLength 隐藏 endarrow
+                endVisible = !!(index <= pageCount - validLength);//如果index 大于 displayCount - validLength 隐藏 endarrow
             // this.pageIndexs.addClass('none');
             this.preomit.toggleClass('none', !preVisible);
             this.endomit.toggleClass('none', !endVisible);
@@ -153,21 +161,26 @@
                 }
 
                 if (preVisible && endVisible) {//[1]...-------validLength-------...[20]
-                    curindex >= index - halfLength && curindex <= index + halfLength && $(element).toggleClass('none', false) || $(element).toggleClass('none', true);
+                    var endIndex=index+halfLength;
+                    !isOdd&&endIndex++;
+                    curindex > index - halfLength && curindex < endIndex && $(element).toggleClass('none', false) || $(element).toggleClass('none', true);
                 } else if (endVisible) {//因为索引从1开始 [1]validLength-----------------...[20]
                     curindex -= 1;
                     curindex <= validLength && $(element).toggleClass('none', false) || $(element).toggleClass('none', true);
                 } else if (preVisible) {//[1]...-------------------validLength[20]
-                    curindex += 1;
+                    // curindex += 1;
                     curindex >= pageCount - validLength && curindex <= pageCount && $(element).toggleClass('none', false) || $(element).toggleClass('none', true);
                 }
 
             })
+            this._toggleSelect(null, this.options.selectedPage - 1);
+            this._trigger('selectedPageChange', null, { liz: 'eeeee' })
 
         },
-        _toggleSelect:function(oldIndex,newIndex){
-         $(this.pageIndexs[oldIndex]).toggleClass('select',false);
-         $(this.pageIndexs[newIndex]).toggleClass('select',true);
+        _toggleSelect: function (oldIndex, newIndex) {
+            $(this.pageIndexs[oldIndex]).toggleClass('select', false);//一般jquery 自带的函数基本不用考虑异常处理，jquery 基本都带异常处理
+            $(this.pageIndexs[newIndex]).toggleClass('select', true);
+
         }
 
 
