@@ -12,6 +12,7 @@
     <script src="../dist/js/angular.js"></script>
     <!--<script src="../dist/js/widget.js"></script>-->
     <script src="js/page.js"></script>
+    <script src="directive/directive.js"></script>
    
     <style>
         .page{
@@ -29,7 +30,7 @@
        
     </style>
 </head>
-<body>
+<body ng-app="app" ng-controller="MainCtrl as vm">
     <div class="container-fluid">
     <h1>For page widget</p>
     
@@ -62,9 +63,10 @@
         <button class="page-item page-index btn-default btn select" index="20">20</button> 
         <button class="page-item btn-default btn page-endarrow">&gt;</button>
     </div>-->
-<div id='page'></div>
+<!--<div id='page'></div>
 
-	</div>
+	</div>-->
+    <aui-page page-model="vm.pageModel"></aui-page>
 </div>
   
     
@@ -72,8 +74,28 @@
      <button type="button" id="btn1" class="btn btn-default"></button>
     </div>
     <script>
-       var ele=$("#page");
-       ele.page();
+     //  var ele=$("#page");
+     //  ele.page();
+     (function (angular) {
+  'use strict';
+
+  angular.module('app', ['aui']);
+  angular.module('app')
+    .controller('MainCtrl', ControllerCtrl);
+
+  /** @ngInject */
+  function ControllerCtrl(window,initService) {
+    var vm = this;
+    vm.author = 'liz';
+    vm.subject='angular';
+    vm.pageModel= initService.initPageModel();
+
+        };
+
+ ControllerCtrl.$inject = ['$window','initService'];//
+} (window.angular));
+
+
     </script>
 </body>
 </html>
