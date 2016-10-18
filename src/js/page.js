@@ -1,22 +1,31 @@
 //javacode
 // widget page
-
-// <div class="page page-default">
-//          <button class="page-item page-prearrow btn-default btn" index><</button>0
-// 			<button class="page-item page-index btn-default btn" index>1</button>1
-//          <button class="page-item page-headomit btn-default btn">...</button>2
-// 			<button class="page-item btn-default btn"index>2</button>3
-// 			<button class="page-item btn-default btn"index>3</button>4
-// 			<button class="page-item btn-default btn"index>4</button>5
-// 			<button class="page-item btn-default btn"index>5</button>6
-// 			<button class="page-item btn-default btn"index>6</button>7
-// 			<button class="page-item btn-default btn"index>7</button>8
-// 			<button class="page-item btn-default btn"index>8</button>9
-// 			<button class="page-item btn-default btn"index>9</button>10
-//          <button class="page-item page-tailomit btn-default btn">...</button>11
-// 			<button class="page-item btn-default btn"index>10</button>12
-//          <button class="page-item page-endarrow btn-default btn" index>></button>13
-// </div>
+// <div id="page" class="page page-default">
+//         <button class="page-item btn-default btn page-prearrow">&lt;</button> 
+//         <button class="page-item page-index btn-default btn"index="1">1</button>
+//         <button class="page-item page-omit btn-default btn">...</button> 
+//         <button class="page-item page-index btn-default btn none" index="2">2</button>
+//         <button class="page-item page-index btn-default btn none" index="3">3</button> 
+//         <button class="page-item page-index btn-default btn none" index="4">4</button> 
+//         <button class="page-item page-index btn-default btn none" index="5">5</button> 
+//         <button class="page-item page-index btn-default btn none" index="6">6</button> 
+//         <button class="page-item page-index btn-default btn none" index="7">7</button> 
+//         <button class="page-item page-index btn-default btn none" index="8">8</button> 
+//         <button class="page-item page-index btn-default btn none" index="9">9</button> 
+//         <button class="page-item page-index btn-default btn none" index="10">10</button> 
+//         <button class="page-item page-index btn-default btn none" index="11">11</button> 
+//         <button class="page-item page-index btn-default btn none" index="12">12</button> 
+//         <button class="page-item page-index btn-default btn none" index="13">13</button> 
+//         <button class="page-item page-index btn-default btn" index="14">14</button> 
+//         <button class="page-item page-index btn-default btn" index="15">15</button> 
+//         <button class="page-item page-index btn-default btn" index="16">16</button> 
+//         <button class="page-item page-index btn-default btn" index="17">17</button> 
+//         <button class="page-item page-index btn-default btn" index="18">18</button> 
+//         <button class="page-item page-index btn-default btn" index="19">19</button> 
+//         <button class="page-item page-omit btn-default btn none">...</button>	
+//         <button class="page-item page-index btn-default btn select" index="20">20</button> 
+//         <button class="page-item btn-default btn page-endarrow">&gt;</button></div>
+// <div id='page'></div>
 
 
 
@@ -152,10 +161,10 @@
                 preVisible = !!(index > validLength),//如果index 大于validLength 隐藏 prearrow
                 endVisible = !!(index <= pageCount - validLength);//如果index 大于 displayCount - validLength 隐藏 endarrow
             // this.pageIndexs.addClass('none');
-            this.preomit.toggleClass('none', !preVisible);
-            this.endomit.toggleClass('none', !endVisible);
+            this.preomit.toggleClass('none', !preVisible);//控制开头的省略是否显示
+            this.endomit.toggleClass('none', !endVisible);//控制结尾的省略是否显示
             this.pageIndexs.each(function (i, element) {//[1]...-------validLength-------...[20]
-                var curindex = i + 1;
+                var curindex = i + 1;//此处加一是为了跟pageindex 相同
                 if (curindex == 1 || curindex == pageCount) {//[1]and[20]
                     return;
                 }
