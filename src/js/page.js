@@ -86,8 +86,9 @@
             selectedPage: 1,
             pageCount: 20,
             displayCount: 9,
-            selectedPageChange: function (event, data) {//$(':page').on(page:selectedPageChange,function(event,data){})
+            selectedPageChange: function (event, data) {//$(':aui-page').on(page:selectedPageChange,function(event,data){})
                 //this 为控件所在DOM 元素 
+                debugger;
             }
         },
         _create: function () {
@@ -103,7 +104,8 @@
             this._on({
                 "click .page-index": function (event) {
                     var index = parseInt(event.target.textContent);
-                    this._toggleSelect(this.options.selectedPage - 1);
+                  //  this._toggleSelect(this.options.selectedPage);//去掉之前的选择状态
+                    this._cleanSelect();
                     this.options.selectedPage = index;
                     this._selectedPageChange();
                 },
@@ -112,17 +114,21 @@
                     if (this.options.selectedPage == 1) {
                         return;
                     }
+                   // this._toggleSelect(this.options.selectedPage);//去掉之前的选择状态
+                    this._cleanSelect();
                     this.options.selectedPage -= 1;
                     this._selectedPageChange();
-                    this._toggleSelect(this.options.selectedPage);
+                 
                 },
                 "click .page-endarrow": function (event) {
                     if (this.options.selectedPage == this.options.pageCount) {
                         return;
                     }
+                //    this._toggleSelect(this.options.selectedPage);//去掉之前的选择状态
+                    this._cleanSelect();
                     this.options.selectedPage += 1;
                     this._selectedPageChange();
-                    this._toggleSelect(this.options.selectedPage - 2);
+                   
                 }
             })
             //init
@@ -182,14 +188,17 @@
                 }
 
             })
-            this._toggleSelect(null, this.options.selectedPage - 1);
-            this._trigger('selectedPageChange', null, { liz: 'eeeee' })
+            this._toggleSelect(null, this.options.selectedPage);//给选中元素添加选中状态
+            this._trigger('selectedPageChange', null, { liz: 'eeeee' })//http://www.jquery123.com/trigger/
 
         },
         _toggleSelect: function (oldIndex, newIndex) {
-            $(this.pageIndexs[oldIndex]).toggleClass('select', false);//一般jquery 自带的函数基本不用考虑异常处理，jquery 基本都带异常处理
-            $(this.pageIndexs[newIndex]).toggleClass('select', true);
+            $(this.pageIndexs[oldIndex-1]).toggleClass('select', false);//一般jquery 自带的函数基本不用考虑异常处理，jquery 基本都带异常处理
+            $(this.pageIndexs[newIndex-1]).toggleClass('select', true);
 
+        },
+        _cleanSelect:function(){
+            this.pageIndexs.toggleClass('select',false);
         }
 
 

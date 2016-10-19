@@ -67,6 +67,7 @@
 
 	</div>-->
     <aui-page page-model="vm.pageModel"></aui-page>
+     <!--<aui-page page-model="vm.pageModel1"></aui-page>-->
 </div>
   
     
@@ -88,8 +89,17 @@
     var vm = this;
     vm.author = 'liz';
     vm.subject='angular';
-    vm.pageModel= initService.initPageModel();
-
+    vm.pageModel= initService.initPageModel({
+                widgetEventPrefix: 'page:',
+                theme: 'page-default',
+                selectedPage: 1,
+                pageCount: 30,
+                displayCount: 9,
+                selectedPageChange: function (event, data) {//$(':page').on(page:selectedPageChange,function(event,data){})
+                    //this 为控件所在DOM 元素 
+                }
+            });
+    vm.pageModel1= initService.initPageModel();
         };
 
  ControllerCtrl.$inject = ['$window','initService'];//
