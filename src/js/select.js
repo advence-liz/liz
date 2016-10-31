@@ -214,7 +214,11 @@
             this.menuitems.removeClass("select");
             $(this.menuitems[this.options.selectedIndex]).toggleClass('select', true);
 
-        },
+        }
+        /**
+         * 以下function 并没有使用
+         */
+        ,
         _filterItem: function () {
             this.options.items.filter(function () {
 
