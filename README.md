@@ -1,7 +1,7 @@
 # 简介
 此工程以后作为存储我开发的jqueryui 控件使用
 ## 工程使用说明
-- 前提条件：安装node，全局安装npm（npm一般默认安装当安装node后），gulp，bower(当然如果不安装NODE也是可以使用的，只要把HTML页面所用的js文件找全就OK！)。
+- 前提条件：安装node，全局安装npm（npm一般默认安装当安装node后），gulp，bower(当然如果不安装NODE也是可以使用的，只要把HTML页面所用的js文件找全就OK! 或者直接使用CDN)<a href="http://www.bootcdn.cn/">推荐CND站点</a>。
 - 执行命令：
   
   ```bash
