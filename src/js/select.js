@@ -148,7 +148,7 @@
             $.Widget.prototype._setOption.apply(this, arguments);
             switch (key) {
                 case 'items': {
-                    $('.select-menu', this.element).replaceWith(this._createDropdownMenu());
+                    $('.select-menu').replaceWith(this._createDropdownMenu());
                     this.refresh(true);
                     break;
                 }

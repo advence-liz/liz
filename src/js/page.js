@@ -24,8 +24,10 @@
 //         <button class="page-item page-index btn-default btn" index="19">19</button> 
 //         <button class="page-item page-omit btn-default btn none">...</button>	
 //         <button class="page-item page-index btn-default btn select" index="20">20</button> 
-//         <button class="page-item btn-default btn page-endarrow">&gt;</button></div>
-// <div id='page'></div>
+//         <button class="page-item btn-default btn page-endarrow">&gt;</button>
+// </div>
+
+
 
 
 
@@ -51,7 +53,7 @@
             items.unshift(arg);
             return this;
         }
-        this.insert = function (arg, index) {
+        this.insert = function (arg, index) {//基本上可以理解为在在index（index从零开始可以为负）的位置插入一个元素
             items.splice(index, 0, arg);
             return this;
         }
@@ -75,18 +77,19 @@
         this.getItems = function () {
             return items;
         }
+        //初始化时直接执行setItems 设置 items 的值
         this.setItems();
     }
 
     $.widget("aui.page", {
         version: "1.0",
+        widgetEventPrefix: 'page:',
         options: {
-            widgetEventPrefix: 'page:',
             theme: 'page-default',
             selectedPage: 1,
             pageCount: 20,
             displayCount: 9,
-            selectedPageChange: function (event, data) {//$(':aui-page').on(page:selectedPageChange,function(event,data){})
+            selectedPageChange: function (event, data) {//$(':aui-page').on("page:selectedPageChange",function(event,data){debugger;})
                 //this 为控件所在DOM 元素 
                 debugger;
             }
@@ -129,6 +132,9 @@
                     this.options.selectedPage += 1;
                     this._selectedPageChange();
                    
+                },
+                "selectedpagechange":function(){
+                    debugger;
                 }
             })
             //init
@@ -189,7 +195,7 @@
 
             })
             this._toggleSelect(null, this.options.selectedPage);//给选中元素添加选中状态
-            this._trigger('selectedPageChange', null, { liz: 'eeeee' })//http://www.jquery123.com/trigger/
+            this._trigger('selectedPageChange', null, { liz: 'eeeee' })//http://www.jquery123.com/trigger/ 在_trigger 中奖 'selectedPageChange'转为了小写
 
         },
         _toggleSelect: function (oldIndex, newIndex) {

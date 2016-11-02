@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+	<title>tab</title>
+	<link href="../dist/css/jquery-ui.css" rel="stylesheet" />
+	<link href="../dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../dist/css/widget.css" rel="stylesheet" />
+	<script src="../dist/js/jquery.js"></script>
+	<script src="../dist/js/jquery-ui.js"></script>
+	<script src="../dist/js/angular.js"></script>
+	<!--<script src="../dist/js/widget.js"></script>-->
+    <script src="js/tab.js"></script>
+	<script src="directive/directive.js"></script>
+
+	<style>
+		.page {}
+		
+		.page-item {
+			min-width: 42px;
+		}
+		
+		.none {
+			display: none;
+		}
+		
+		.page-default .select {
+			background-color: #5FB554;
+		}
+	</style>
+</head>
+
+<body ng-app="app" ng-controller="MainCtrl as vm">
+	<div class="container-fluid">
+		<h1>For page widget</p>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Reference</h2>
+
+				</div>
+				<section>
+					<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void"></a>
+					<p>
+						这个要从目的作为出发点分析，href上加js是为了防止连接跳转，以前用#但是在部分浏览器下回跳转到页面顶部。这样就不好了，于是有人想到了添加onclick=“return false”但是这样问题又来了，这样做会组织绑定的时间，比如我们用jquery。于是就有了用href=”javascript:void(0);”的写法，这种做法开始确实是由一些写c的人，因为编写习惯而写的。后来有人讲void函数去掉了。就有了比较简洁的写法，其实在a在没有连接的时候完全可以去掉href属性或改用其他元素，只要加个指向时的鼠标样式就可以了。根据个人习惯而定。
+					</p>
+				</section>
+				<h2>nav-tabs</h2>
+				<section>
+					<aui-tab id="aui-tab">
+						
+                     
+					</aui-tab>
+
+
+
+
+				</section>
+				<h2>nav-pills</h2>
+				<section>
+					<ul class="nav nav-pills" role="tablist">
+						<li role="presentation" class="active"><a href="#">Home</a></li>
+						<li role="presentation"><a href="#">Profile</a></li>
+						<li role="presentation"><a href="#">Messages</a></li>
+					</ul>
+				</section>
+				<h2> nav-pills nav-stacked</h2>
+				<section>
+					<ul class="nav nav-pills nav-stacked" role="tablist">
+						<li role="presentation" class="active"><a href="#">Home</a></li>
+						<li role="presentation"><a href="#">Profile</a></li>
+						<li role="presentation"><a href="#">Messages</a></li>
+					</ul>
+				</section>
+				<button type="button" id="btn" class="btn btn-default"></button>
+				<button type="button" id="btn1" class="btn btn-default"></button>
+			</div>
+			<script>
+  
+     (function (angular) {
+  'use strict';
+
+  angular.module('app', ['aui']);
+  angular.module('app')
+    .controller('MainCtrl', ControllerCtrl);
+
+  /** @ngInject */
+  function ControllerCtrl(window,initService) {
+    var vm = this;
+    vm.author = 'liz';
+    vm.subject='angular';
+    vm.pageModel= initService.initPageModel({
+                widgetEventPrefix: 'page:',
+                theme: 'page-default',
+                selectedPage: 1,
+                pageCount: 30,
+                displayCount: 9,
+                selectedPageChange: function (event, data) {//$(':page').on(page:selectedPageChange,function(event,data){})
+                    //this 为控件所在DOM 元素 
+                }
+            });
+ 
+        };
+
+ ControllerCtrl.$inject = ['$window','initService'];//
+} (window.angular));
+
+   //var reg= /<[^>]*class\s*=\s*"(.*)"\s.*/;
+   //var reg=/[^a-z]/ig;
+     var tab_list = new aui.ArrayList;
+     tab_list.push(new aui.TabsItem('javascript:;', 'tab1'));
+     tab_list.push(new aui.TabsItem('javascript:;', 'tab2'));
+     tab_list.push(new aui.TabsItem('javascript:;', 'tab3'));
+	 var ele=$("#aui-tab");
+	 ele.tab({
+		 tabList:tab_list
+	 });
+    </script>
+
+</body>
+
+</html>
