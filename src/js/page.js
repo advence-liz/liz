@@ -136,7 +136,7 @@
                 "selectedpagechange":function(){
                     debugger;
                 }
-            })
+            });
             //init
             this._selectedPageChange();
         },

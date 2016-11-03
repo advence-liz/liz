@@ -73,23 +73,37 @@
     //         link: link,
     //         restrict: 'AE',
     //         scope: {
-    //             pageModel: '='
+    //             pageModel: '='  //使用bindToController 可以关联指令独立作用域中的pageMode 和外围的pageModel
     //         },
     //     }
     // }
 
 
     function directive() {
-
+        /**
+         * <aui-page page-model="vm.pageModel"></aui-page>
+         * vm.pageModel即传入控件初始化的options（控件实例化后实例中会产生一个新的options对象）
+         * 此方法让vm.pageModel指向新的options
+         * 并且额外存储了控件所在DOM，和调用控件方法的接口 invoke
+         */
         function directiveController($scope, $element, $attrs) {//$scope,$element,$attrs
             var instance;
             $element.page($scope.$eval($attrs.pageModel));//初始化控件  $scope.$eval($attrs.pageModel) 控件options 对象
             instance = $element.page('instance');
+            /**
+             * tmpOptions 这个临时对象必须得加到$scope中的原因是$scope.$eval方法是以$scope为上下文执行
+             */
             $scope.tmpOptions = instance.options;
             $scope.tmpOptions.element = $element;
             $scope.tmpOptions.invoke = invoke;
             $scope.$eval($attrs.pageModel + '=tmpOptions');
             delete $scope.tmpOptions;
+            /**
+             * 调用控件实例方法接口
+             * @interface invoke
+             * @param {String} methond name
+             * @param {Array}  arguments
+             */
             function invoke(methond, args) {
                 if (methond in instance) {
                     try {
@@ -102,10 +116,6 @@
 
                 }
             }
-            // pageModel = $element.page('instance').options;
-            //   pageModel.instance=$element.page('instance');
-
-
 
         }
 
