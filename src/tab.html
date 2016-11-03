@@ -16,18 +16,8 @@
 	<script src="directive/directive.js"></script>
 
 	<style>
-		.page {}
-		
-		.page-item {
-			min-width: 42px;
-		}
-		
-		.none {
-			display: none;
-		}
-		
-		.page-default .select {
-			background-color: #5FB554;
+		.tab-content{
+			display:none;
 		}
 	</style>
 </head>
@@ -49,17 +39,19 @@
 				</section>
 				<h2>nav-tabs</h2>
 				<section>
-					<aui-tab id="aui-tab">
+					<aui-nav id="aui-tab" type="tab">
 						
                      
-					</aui-tab>
+					</aui-nav>
 
-
+                        <div class="tab-content"id="tab1">Block one</div>
+                        <div class="tab-content"id="tab2">Block two</div>
+                        <div class="tab-content"id="tab3">Block three</div>
 
 
 				</section>
 				<h2>nav-pills</h2>
-				<section>
+				<section class="hide">
 					<ul class="nav nav-pills" role="tablist">
 						<li role="presentation" class="active"><a href="#">Home</a></li>
 						<li role="presentation"><a href="#">Profile</a></li>
@@ -67,7 +59,7 @@
 					</ul>
 				</section>
 				<h2> nav-pills nav-stacked</h2>
-				<section>
+				<section class="hide">
 					<ul class="nav nav-pills nav-stacked" role="tablist">
 						<li role="presentation" class="active"><a href="#">Home</a></li>
 						<li role="presentation"><a href="#">Profile</a></li>
@@ -110,12 +102,13 @@
    //var reg= /<[^>]*class\s*=\s*"(.*)"\s.*/;
    //var reg=/[^a-z]/ig;
      var tab_list = new aui.ArrayList;
-     tab_list.push(new aui.TabsItem('javascript:;', 'tab1'));
-     tab_list.push(new aui.TabsItem('javascript:;', 'tab2'));
-     tab_list.push(new aui.TabsItem('javascript:;', 'tab3'));
+     tab_list.push(new aui.TabsItem('#tab1', 'tab1'));
+     tab_list.push(new aui.TabsItem('#tab2', 'tab2'));
+     tab_list.push(new aui.TabsItem('#tab3', 'tab3'));
 	 var ele=$("#aui-tab");
-	 ele.tab({
-		 tabList:tab_list
+	 ele.nav({
+		 tabList:tab_list,
+		 type:'nav-pills'
 	 });
     </script>
 
