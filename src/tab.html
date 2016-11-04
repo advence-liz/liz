@@ -102,7 +102,10 @@
    //var reg= /<[^>]*class\s*=\s*"(.*)"\s.*/;
    //var reg=/[^a-z]/ig;
      var tab_list = new aui.ArrayList;
-     tab_list.push(new aui.TabsItem('#tab1', 'tab1'));
+	 var tabItem=new aui.TabsItem('#tab1', 'tab1');
+	 tabItem.childList.push(new aui.TabsItem('#tab2', 'tab2'));
+	 tabItem.childList.push(new aui.TabsItem('#tab3', 'tab3'));
+     tab_list.push(tabItem);
      tab_list.push(new aui.TabsItem('#tab2', 'tab2'));
      tab_list.push(new aui.TabsItem('#tab3', 'tab3'));
 	 var ele=$("#aui-tab");
