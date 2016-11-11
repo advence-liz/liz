@@ -27,9 +27,12 @@
                         <div class="tab-content">Block three</div>
 
  */
-
+"use strict";
 
 void function ($, window) {
+    /**
+     * 将TabsItem和 ArrayList放在 window.aui 下位临时方案如果结合angular将会将这些class 作为service提供
+     */
     window.aui ? null : (window.aui = {});
     window.aui.TabsItem = TabsItem;
     window.aui.ArrayList = ArrayList;
@@ -37,7 +40,7 @@ void function ($, window) {
         /**
          * template target_href 跟 dispaly_title 相当于占位符
          */
-        this.template = template || '<li role="presentation" class="nav-item" href="target_href"><a class="nav-anchor">dispaly_title</a></li>';
+        this.template = template || '<li role="presentation" class="nav-item"><a class="nav-anchor" href="target_href">dispaly_title</a></li>';
         this.target_href = target_href;
         this.dispaly_title = dispaly_title;
         this.childList = new ArrayList;
@@ -165,7 +168,7 @@ void function ($, window) {
                  * ele.trigger('nav:invoke',{method:'remove',args:[]});
                  * @interface
                  * @param {Event}
-                 * @param {planObject}
+                 * @param {planObject}->{method:'methodName',args:[arguments]}
                  */
                 "nav:invoke": function (event, planObject) {
                     var method = planObject.method,//{string}
@@ -200,28 +203,33 @@ void function ($, window) {
             }
         },
         _createContent: function () {
+            /**
+             * tabList {ArrayList}
+             * tmp {TabsItem}
+             */
             var template_arr = new Array,
-                template_str,//{string}
-                tabList = this.options.tabList,//{ArrayList}
-                tmp,//{TabsItem}
-                class_str;//{string}
-                
+                template_str,
+                tabList = this.options.tabList,
+                tmp,
+                class_str;
+            //begin loop1   
             while (tmp = tabList.next()) {
                 if (tmp.childList.length) {
                     template_arr.push(TabsItem.li_front);
                     template_arr.push(TabsItem.ul_front);
                     /**
                      * 遍历二级节点
-                     * cur_item 二级节点中的当前li
-                     * chidList 二级节点集合 
+                     * cur_item 二级节点中的当前li{TabsItem}
+                     * chidList 二级节点集合 {ArrayList}
                      * 
                      */
                    var cur_item,childList=tmp.childList;
-                
+                   //begin loop2
                     while ( cur_item= childList.next() ){
                         template_arr.push(cur_item.template);
                         this.$navs_content = this.$navs_content.add(cur_item.target_href);
-                    }
+                    }//end loop2
+                    
                     template_arr.push('</ul>');
                     template_arr.push('</li>');
 
@@ -230,9 +238,7 @@ void function ($, window) {
                     this.$navs_content = this.$navs_content.add(tmp.target_href);
                 }
 
-
-
-            }
+            }//end loop1
             /**
              * 此处可以加判断 设置nav 的tab 跟theme  DBZQ
              *  */
