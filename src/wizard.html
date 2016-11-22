@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+	<title>wizard</title>
+	<link href="../dist/css/jquery-ui.css" rel="stylesheet" />
+	<!--<link href="../dist/css/bootstrap.css" rel="stylesheet" />-->
+	<!--<link href="../dist/css/widget.css" rel="stylesheet" />-->
+	<script src="../dist/js/jquery.js"></script>
+	<script src="../dist/js/jquery-ui.js"></script>
+
+	<!--<script src="../dist/js/widget.js"></script>-->
+	<script src="js/tab.js"></script>
+	<script src="js/wizard.js"></script>
+
+
+	<style>
+		.tab-content {
+			display: none;
+			float: right;
+		}
+		
+		.tab-content:target {
+			display: block;
+		}
+		
+		ul {
+			padding: 0;
+		}
+		
+		.show {
+			display: block;
+		}
+		
+		.nav ul,
+		li {
+			display: block;
+		}
+		.nav{
+			display: inline-block;
+		}
+		.nav-wizard nav-itemUnits {
+			float: left;
+		}
+	</style>
+</head>
+<!--<aui-tab id="aui-tab">
+
+
+	<ul class="nav nav-wizard nav-default" role="tablist">
+		<li role="presentation" class="nav-itemUnits">
+			<div class="nav-itemstep">1</div>
+			<ul role="tablist">
+				<li role="presentation" class="nav-item"> <a class="nav-anchor" href="#tab2">Home</a></li>
+				<li role="presentation" class="nav-item"> <a class="nav-anchor" href="#tab3">Home</a></li>
+			</ul>
+		</li>
+		<li role="presentation" class="nav-item nav-itemUnits active">
+			<div class="nav-itemstep">2</div><a class="nav-anchor" href="#tab2">Home</a></li>
+		<li role="presentation" class="nav-item nav-itemUnits">
+			<div class="nav-itemstep">3</div><a class="nav-anchor" href="#tab3">Home</a></li>
+	</ul>
+</aui-tab>-->
+
+<body ng-app="app" ng-controller="MainCtrl as vm">
+	<div class="container-fluid">
+		<h1>For page widget</p>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Reference</h2>
+
+				</div>
+				<section>
+					<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void"></a>
+					<p>
+						这个要从目的作为出发点分析，href上加js是为了防止连接跳转，以前用#但是在部分浏览器下回跳转到页面顶部。这样就不好了，于是有人想到了添加onclick=“return false”但是这样问题又来了，这样做会组织绑定的时间，比如我们用jquery。于是就有了用href=”javascript:void(0);”的写法，这种做法开始确实是由一些写c的人，因为编写习惯而写的。后来有人讲void函数去掉了。就有了比较简洁的写法，其实在a在没有连接的时候完全可以去掉href属性或改用其他元素，只要加个指向时的鼠标样式就可以了。根据个人习惯而定。
+					</p>
+				</section>
+				<h2>nav-tabs</h2>
+				<section>
+					<aui-tab id="aui-tab">
+
+                    <div class="tab-content" id="tab1">Block one</div>
+					<div class="tab-content" id="tab2">Block two</div>
+					<div class="tab-content" id="tab3">Block three</div>
+					</aui-tab>
+
+					
+
+
+				</section>
+
+				<button type="button" id="btn" class="btn btn-default"></button>
+				<button type="button" id="btn1" class="btn btn-default"></button>
+			</div>
+			<script>
+ 
+
+  
+     var tab_list = new aui.ArrayList;
+     //aui.TabsItem.template='<li role="presentation" class="nav-item active"><div class="nav-itemstep"></div><a  class="nav-anchor" href="#">Home</a></li>';
+     aui.TabsItem.toggle();
+	 var tabItem=new aui.TabsItem('#tab1', 'tab1');
+	 tabItem.childList.push(new aui.TabsItem('#tab2', 'tab2'));
+	 tabItem.childList.push(new aui.TabsItem('#tab3', 'tab3'));
+     tab_list.push(tabItem);
+   
+     tab_list.push(new aui.TabsItem('#tab2', 'tab2'));
+     tab_list.push(new aui.TabsItem('#tab3', 'tab3'));
+	 var ele=$("#aui-tab");
+	 ele.wizard({
+		 tabList:tab_list,
+		 type:'nav-wizard'
+	 });
+    </script>
+
+</body>
+
+</html>
