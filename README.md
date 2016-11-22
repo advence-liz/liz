@@ -17,7 +17,7 @@
    ```    
      执行此命令后会生成dist文件夹并拷贝所需文件到其下，编译less 文件合并 js 文件
 ## 关于控件构建的总结
-> - 规划DOM结构，根据DOM结构，按照BEM规范规划DOM对应的CSS Class层次
+>  - 规划DOM结构，根据DOM结构，按照BEM规范规划DOM对应的CSS Class层次
 >  - 根据DOM结构 ，构建JS model（js 构造函数）
 >  - 通过JS model 生成DOM（dom 拥有代表结构的 css class）
 >  - 生成DOM 结构后通过 options 添加对应的modify class 
