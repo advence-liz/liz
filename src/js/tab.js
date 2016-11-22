@@ -50,7 +50,10 @@ void function ($, window) {
     }
     TabsItem.ul_front = '<ul class="nav nav-tabs" role="tablist">';
     // TabsItem.ul_end='</ul>';
-    TabsItem.li_front = ' <li role="presentation">';
+    /**
+     * li has chidList
+     */
+    TabsItem.li_childlist = ' <li role="presentation">';
     //  TabsItem.li_end='</li>';
 
     /**
@@ -148,6 +151,7 @@ void function ($, window) {
             theme: 'default',
             type: 'nav-tabs',
             selectedIndex: 0,
+            stepCount:2
 
 
         },
@@ -158,9 +162,19 @@ void function ($, window) {
             this.$nav_items = this.element.find('.nav-item');
             this.$cur_item = new $(this.$nav_items[this.options.selectedIndex]);
             this.$cur_content = new $(this.$navs_content[this.options.selectedIndex]);
+            /**
+             *  所有的一级li 主要是判断 li 下是否有二级ul li 与其他业务逻辑无关，主要为this._isStep 函数服务
+             * nav-itemUnits  a modify of nav-item  
+             * nav-item 代表元素一般构建模板是添加而 nav-itemUnits 是修饰构建之后根据options 添加即可
+             */
+            this.$nav_itemUnits = $(">li",this.$nav_ele).addClass("nav-itemUnits");
             this._on({
                 "click .nav-item": function (event) {
-                    this.$cur_item = $(event.currentTarget);
+                    var cur_activedom=$(event.currentTarget);
+                    if(('stepCount' in this.options)&& !this._isStep(cur_activedom)){
+                       return false;
+                    }
+                    this.$cur_item = cur_activedom;
                     this.$cur_content = $(this.$cur_item.attr('href'));
                     this._refresh();
                 },
@@ -215,7 +229,7 @@ void function ($, window) {
             //begin loop1   
             while (tmp = tabList.next()) {
                 if (tmp.childList.length) {
-                    template_arr.push(TabsItem.li_front);
+                    template_arr.push(TabsItem.li_childlist);
                     template_arr.push(TabsItem.ul_front);
                     /**
                      * 遍历二级节点
@@ -266,6 +280,16 @@ void function ($, window) {
             this.$cur_content = new $(this.$navs_content[this.options.selectedIndex]);
             this._refresh();
 
+        },
+        _isStep:function (cur_activedom) {
+            cur_activedom=cur_activedom.closest(".nav-itemUnits")||cur_activedom;
+           if(cur_activedom.index() <this.options.stepCount){
+               return true;
+           }
+           else{
+               return false;
+           }
+           
         }
     })
 
