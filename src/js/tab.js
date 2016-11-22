@@ -10,10 +10,10 @@
 /**
  *              <aui-tab>
 						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="nav-item active"><a  class="nav-anchor" href="#">Home</a></li>
-							<li role="presentation" class="nav-item"><a  class="nav-anchor" href="#">Profile</a></li>
-							<li role="presentation" class="nav-item"><a   class="nav-anchor" href="#">Messages</a></li>
-                            <li role="presentation">
+							<li role="presentation" class="nav-item nav-itemUnits active"><a  class="nav-anchor" href="#">Home</a></li>
+							<li role="presentation" class="nav-item nav-itemUnits"><a   class="nav-anchor" href="#">Messages</a></li>
+                            <li role="presentation" class="nav-itemUnits">
+                             <div class="nav_itemstep">{{index}}</div>
                               <ul class="nav nav-tabs" role="tablist">
 							    <li role="presentation" class="nav-item"><a  class="nav-anchor" href="#">Home</a></li>
 							    <li role="presentation" class="nav-item"><a  class="nav-anchor" href="#">Profile</a></li>
@@ -40,7 +40,7 @@ void function ($, window) {
         /**
          * template target_href 跟 dispaly_title 相当于占位符
          */
-        this.template = template || '<li role="presentation" class="nav-item"><a class="nav-anchor" href="target_href">dispaly_title</a></li>';
+        this.template =TabsItem.template || '<li role="presentation" class="nav-item"><a class="nav-anchor" href="target_href">dispaly_title</a></li>';
         this.target_href = target_href;
         this.dispaly_title = dispaly_title;
         this.childList = new ArrayList;
@@ -48,12 +48,20 @@ void function ($, window) {
             this.template = this.template.replace(/target_href/, target_href).replace(/dispaly_title/, dispaly_title);
         }.apply(this);
     }
-    TabsItem.ul_front = '<ul class="nav nav-tabs" role="tablist">';
+    TabsItem.toggle=function(){
+        this.template='<li role="presentation" class="nav-item"><div class="nav-itemstep"></div><a  class="nav-anchor" href="target_href">Home</a></li>';
+        this.nav_itemunits = ' <li role="presentation">'+
+                            '<div class="nav-itemstep"></div>';
+    }
+    //TabsItem.template='<li role="presentation" class="nav-item active"><div class="nav-itemstep">nav_itemstep</div><a  class="nav-anchor" href="#">Home</a></li>'
+    TabsItem.template='<li role="presentation" class="nav-item"><a class="nav-anchor" href="target_href">dispaly_title</a></li>';
+    TabsItem.ul_front = '<ul class="nav_class" role="tablist">';
     // TabsItem.ul_end='</ul>';
     /**
      * li has chidList
      */
-    TabsItem.li_childlist = ' <li role="presentation">';
+    TabsItem.nav_itemunits = ' <li role="presentation">';
+                         
     //  TabsItem.li_end='</li>';
 
     /**
@@ -148,7 +156,7 @@ void function ($, window) {
         $cur_content: null,
         options: {
             tabList: new Array,
-            theme: 'default',
+            theme: 'nav-default',
             type: 'nav-tabs',
             selectedIndex: 0,
             stepCount:2
@@ -158,7 +166,7 @@ void function ($, window) {
         _create: function () {
 
             this.element.append(this._createContent());
-            this.$nav_ele = this.element.find('.nav');
+            this.$nav_ele = this.element.find('>.nav');
             this.$nav_items = this.element.find('.nav-item');
             this.$cur_item = new $(this.$nav_items[this.options.selectedIndex]);
             this.$cur_content = new $(this.$navs_content[this.options.selectedIndex]);
@@ -167,7 +175,7 @@ void function ($, window) {
              * nav-itemUnits  a modify of nav-item  
              * nav-item 代表元素一般构建模板是添加而 nav-itemUnits 是修饰构建之后根据options 添加即可
              */
-            this.$nav_itemUnits = $(">li",this.$nav_ele).addClass("nav-itemUnits");
+            this.$nav_itemUnits = $(">li",this.$nav_ele);
             this._on({
                 "click .nav-item": function (event) {
                     var cur_activedom=$(event.currentTarget);
@@ -175,6 +183,15 @@ void function ($, window) {
                        return false;
                     }
                     this.$cur_item = cur_activedom;
+                    /**
+                     * 下面获取$cur_content并未生效目前 currentTarge 为li 而href 在A标签上不过下面这对样式起效了
+                     * 	.tab-content{
+			               display:none;
+		                 }
+		                .tab-content:target{
+                           display:block;
+	                	 }
+                     */
                     this.$cur_content = $(this.$cur_item.attr('href'));
                     this._refresh();
                 },
@@ -229,8 +246,8 @@ void function ($, window) {
             //begin loop1   
             while (tmp = tabList.next()) {
                 if (tmp.childList.length) {
-                    template_arr.push(TabsItem.li_childlist);
-                    template_arr.push(TabsItem.ul_front);
+                    template_arr.push(TabsItem.nav_itemunits);
+                    template_arr.push('<ul role="tablist">');
                     /**
                      * 遍历二级节点
                      * cur_item 二级节点中的当前li{TabsItem}
@@ -240,6 +257,10 @@ void function ($, window) {
                    var cur_item,childList=tmp.childList;
                    //begin loop2
                     while ( cur_item= childList.next() ){
+                        /**
+                         * 下面的正则式仅当：type为wizard的时候去掉多余DOM结构
+                         */
+                        cur_item.template=cur_item.template.replace(/<div class="nav-itemstep"><\/div>/,' ');
                         template_arr.push(cur_item.template);
                         this.$navs_content = this.$navs_content.add(cur_item.target_href);
                     }//end loop2
@@ -258,7 +279,7 @@ void function ($, window) {
              *  */
             //var reg= /<[^>]*class\s*=\s*"(.*)"\s.*/; 正则第一捕获为 class 属性的值
             class_str = 'nav' + ' ' + this.options.type + ' ' + this.options.theme;
-            template_arr.unshift(TabsItem.ul_front.replace(/nav/, class_str));
+            template_arr.unshift(TabsItem.ul_front.replace(/nav_class/, class_str));
             template_arr.push('</ul>');
             template_str = template_arr.join(' ');
             return template_str;
@@ -267,6 +288,7 @@ void function ($, window) {
         },
         _refresh: function () {
             this.options.selectedIndex = this.$cur_item.index();//此处只对click事件后调用的_refresh() 有意义
+            this.$nav_itemUnits.addClass("nav-itemUnits");
             this.$nav_items.removeClass('active');
             this.$cur_item.addClass('active');
             this.$navs_content.removeClass("show active");
@@ -282,7 +304,7 @@ void function ($, window) {
 
         },
         _isStep:function (cur_activedom) {
-            cur_activedom=cur_activedom.closest(".nav-itemUnits")||cur_activedom;
+            cur_activedom=cur_activedom.closest(".nav-itemUnits");
            if(cur_activedom.index() <this.options.stepCount){
                return true;
            }
