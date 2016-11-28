@@ -49,9 +49,10 @@ void function ($, window) {
         }.apply(this);
     }
     TabsItem.toggle=function(){
-        this.template='<li role="presentation" class="nav-item"><div class="nav-itemstep"></div><a  class="nav-anchor" href="target_href">Home</a></li>';
+        this.template='<li role="presentation" class="nav-item"><div class="nav-step"></div><a  class="nav-anchor" href="target_href">dispaly_title</a></li>';
         this.nav_itemunits = ' <li role="presentation">'+
-                            '<div class="nav-itemstep"></div>';
+                            '<div class="nav-step"></div>'+
+                            '<a class="nav-anchor">dispaly_title</a>';
     }
     //TabsItem.template='<li role="presentation" class="nav-item active"><div class="nav-itemstep">nav_itemstep</div><a  class="nav-anchor" href="#">Home</a></li>'
     TabsItem.template='<li role="presentation" class="nav-item"><a class="nav-anchor" href="target_href">dispaly_title</a></li>';
@@ -246,7 +247,7 @@ void function ($, window) {
             //begin loop1   
             while (tmp = tabList.next()) {
                 if (tmp.childList.length) {
-                    template_arr.push(TabsItem.nav_itemunits);
+                    template_arr.push(TabsItem.nav_itemunits.replace(/dispaly_title/,tmp.dispaly_title));
                     template_arr.push('<ul role="tablist">');
                     /**
                      * 遍历二级节点
@@ -260,7 +261,7 @@ void function ($, window) {
                         /**
                          * 下面的正则式仅当：type为wizard的时候去掉多余DOM结构
                          */
-                        cur_item.template=cur_item.template.replace(/<div class="nav-itemstep"><\/div>/,' ');
+                        cur_item.template=cur_item.template.replace(/<div class="nav-step"><\/div>/,' ');
                         template_arr.push(cur_item.template);
                         this.$navs_content = this.$navs_content.add(cur_item.target_href);
                     }//end loop2
@@ -277,7 +278,7 @@ void function ($, window) {
             /**
              * 此处可以加判断 设置nav 的tab 跟theme  DBZQ
              *  */
-            //var reg= /<[^>]*class\s*=\s*"(.*)"\s.*/; 正则第一捕获为 class 属性的值
+          
             class_str = 'nav' + ' ' + this.options.type + ' ' + this.options.theme;
             template_arr.unshift(TabsItem.ul_front.replace(/nav_class/, class_str));
             template_arr.push('</ul>');
