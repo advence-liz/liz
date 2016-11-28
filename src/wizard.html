@@ -26,10 +26,6 @@
 			display: block;
 		}
 		
-		ul {
-			padding: 0;
-		}
-		
 		.show {
 			display: block;
 		}
@@ -38,12 +34,35 @@
 		li {
 			display: block;
 		}
-		.nav{
+		
+		.nav {
 			display: inline-block;
 		}
+		
 		.nav-wizard nav-itemUnits {
 			float: left;
 		}
+		
+		.nav-step {
+			float: left;
+			position: relative;
+			border: 2px solid #e6e6e6;
+			border-radius: 50%;
+			background: #fff;
+			height: 1em;
+			width: 1em;
+			text-align: center;
+		}
+
+		 .nav-wizard{
+                background: beige;
+                background-origin: content-box;
+                background-repeat: repeat-y;
+                background-size: 5px;
+                background-image: linear-gradient(to right,transparent 50%, #66bb22 0);
+                padding-left: 1em;
+                min-height: 400px;
+        }
 	</style>
 </head>
 <!--<aui-tab id="aui-tab">
@@ -83,12 +102,12 @@
 				<section>
 					<aui-tab id="aui-tab">
 
-                    <div class="tab-content" id="tab1">Block one</div>
-					<div class="tab-content" id="tab2">Block two</div>
-					<div class="tab-content" id="tab3">Block three</div>
+						<div class="tab-content" id="tab1">Block one</div>
+						<div class="tab-content" id="tab2">Block two</div>
+						<div class="tab-content" id="tab3">Block three</div>
 					</aui-tab>
 
-					
+
 
 
 				</section>
