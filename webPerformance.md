@@ -57,11 +57,13 @@ CSS本来是可以并行下载的，在什么情况下会出现阻塞加载了(�
 - 如果正向解析，例如「div div p em」，我们首先就要检查当前元素到 html 的整条路径，找到最上层的 div，再往下找，如果遇到不匹配就必须回到最上层那个 div，往下再去匹配选择器中的第一个 div，回溯若干次才能确定匹配与否，效率很低。
 - 逆向匹配则不同，如果当前的 DOM 元素是 div，而不是 selector 最后的 em，那只要一步就能排除。只有在匹配时，才会不断向上找父节点进行验证。
 - 但因为匹配的情况远远低于不匹配的情况，所以逆向匹配带来的优势是巨大的。同时我们也能够看出，在选择器结尾加上「*」就大大降低了这种优势，这也就是很多优化原则提到的尽量避免在选择器末尾添加通配符的原因。
+
 ## 浏览器性能分析参考
 - [chrome dev debug network 的timeline说明](http://www.cnblogs.com/yjf512/p/3668877.html)
 - [IE官方文档](https://msdn.microsoft.com/zh-cn/library/gg130952(v=vs.85).aspx)
 - [chrome CN](https://github.com/zhangyaowu/CN-Chrome-DevTools)
 - [浏览器链接数](http://smilejay.com/2013/01/max-concurrent-connections/)
+
 ##  文档说明
  此文档的所有资源都是来源网络仅在此做了分类整理备忘持续更新,所有精华之处并非原创，所有原创之处并不优秀。
 
