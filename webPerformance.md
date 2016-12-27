@@ -58,13 +58,38 @@ CSS本来是可以并行下载的，在什么情况下会出现阻塞加载了(�
 - 逆向匹配则不同，如果当前的 DOM 元素是 div，而不是 selector 最后的 em，那只要一步就能排除。只有在匹配时，才会不断向上找父节点进行验证。
 - 但因为匹配的情况远远低于不匹配的情况，所以逆向匹配带来的优势是巨大的。同时我们也能够看出，在选择器结尾加上「*」就大大降低了这种优势，这也就是很多优化原则提到的尽量避免在选择器末尾添加通配符的原因。
 
+## 关于css js文件缓存问题
+### 随机数
+
+```javascript
+document.write( " <script src='test.js?rnd= " + Math.random() + " '></s " + " cript> " );
+
+ ```	
+这样采用随机数的话， js文件将永远得不到缓存，每次都必须重新从服务器加载，即使没有任何更改。
+大家如果经常上国外网站的话，可以看到他们通常采用这样的方式来解决：
+
+### 版本号
+```
+<script src="test.js?ver=113"></script>
+```
+其中 ver=113 的 113就是版本号
+
+这样真正做到了应该缓存的时候缓存静态文件，当版本有更新的时候从获取最新的版本，并更新缓存。
+对于图像 
+```
+<img src="test.jps?ver=版本号">
+```
+ 来有效利用和更新缓存.
+
 ## 浏览器性能分析参考
+
 - [chrome dev debug network 的timeline说明](http://www.cnblogs.com/yjf512/p/3668877.html)
 - [IE官方文档](https://msdn.microsoft.com/zh-cn/library/gg130952(v=vs.85).aspx)
 - [chrome CN](https://github.com/zhangyaowu/CN-Chrome-DevTools)
 - [浏览器链接数](http://smilejay.com/2013/01/max-concurrent-connections/)
 
 ##  文档说明
+
  此文档的所有资源都是来源网络仅在此做了分类整理备忘持续更新,所有精华之处并非原创，所有原创之处并不优秀。
 
  ![](http://img.bbs.csdn.net/upload/201609/08/1473308168_167070.png)
@@ -76,6 +101,7 @@ CSS本来是可以并行下载的，在什么情况下会出现阻塞加载了(�
 - <a href="http://www.cnblogs.com/AndyWithPassion/archive/2011/09/03/2165441.html">script之defer&async</a>
 - <a href="http://www.oschina.net/translate/performance-optimisation-with-timeline-profiles">使用Chrome DevTools的Timeline和Profiles提高Web应用程序的性能</a>
 - <a href="http://www.cnblogs.com/aaronjs/p/3300797.html">Sizzle引擎</a>
+- [js文件缓存](http://www.cnblogs.com/hongsemantuoluo/archive/2013/01/15/2860928.html)
 - [markdown](http://wowubuntu.com/markdown/)
 
 
