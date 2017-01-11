@@ -45,7 +45,7 @@
 	<div class="container-fluid">
 		<p>$ event specify</p>
 		<a href="http://www.phpchina.com/thread-221206-1-1.html">参考链接</a>
-
+		 <div></div>
 		<button type="button" id="btn" class="btn btn-default">改变items</button>
 		<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
 	</div>
@@ -147,23 +147,35 @@
 	    };
 
 
-        $.event.special['click']={
+        // $.event.special['click']={
               
-             setup: function (data, namespaces, eventHandle) {
-                   var elem = $(this);
-				   elem.addClass("liz");
-				   return true;
-         },
-		    add: function(handleObj){
-				debugger;
-			}
+        //      setup: function (data, namespaces, eventHandle) {
+        //            var elem = $(this);
+		// 		   elem.addClass("liz");
+		// 		   return true;
+        //  },
+		//     add: function(handleObj){
+		// 		debugger;
+		// 	}
 
-        }
+        // }
+		$.event.special.click['preDispatch']=function(event){
+			//this 为DOM
+               debugger;
+			   console.log("preDispatch"+event.timeStamp);
+	         event.stopImmediatePropagation();
+		   
+		    
+		}
+
+	
         var btn=$("#btn");
         btn.on('click',function(){
 			alert("eeee");
 		});
-
+ btn.on('click',function(){
+			alert("ffeee");
+		});
     </script>
 </body>
 
