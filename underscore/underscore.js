@@ -38,7 +38,7 @@
   // Create a safe reference to the Underscore object for use below.
   var _ = function(obj) {
     if (obj instanceof _) return obj;
-    if (!(this instanceof _)) return new _(obj);
+    if (!(this instanceof _)) return new _(obj);//如果不是作为构造函数引用，以构造函数的方式调用
     this._wrapped = obj;
   };
 

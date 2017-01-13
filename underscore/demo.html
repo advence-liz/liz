@@ -23,6 +23,7 @@
 	<div class="container-fluid">
 		<p></p>
 		<a href="http://www.css88.com/doc/underscore/">underscore API</a>
+		<a href="http://www.cnblogs.com/human/p/3273616.html">source code</a>
 		 <div></div>
 		<button type="button" id="btn" class="btn btn-default">改变items</button>
 		<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
@@ -31,8 +32,12 @@
 // escape:/<%-([\s\S]+?)%>/g
 // evaluate:/<%([\s\S]+?)%>/g
 // interpolate:/<%=([\s\S]+?)%>/g
-
-       
+ function fun(){
+	console.log(_.now());
+ }
+ var lazy=_.debounce(fun,300)
+ $(window).resize(lazy);
+     
     </script>
 </body>
 
