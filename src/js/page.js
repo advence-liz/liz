@@ -195,8 +195,9 @@
 
             })
             this._toggleSelect(null, this.options.selectedPage);//给选中元素添加选中状态
-            this._trigger('selectedPageChange', null, { liz: 'eeeee' })//http://www.jquery123.com/trigger/ 在_trigger 中奖 'selectedPageChange'转为了小写
-
+            this._trigger('selectedPageChange', null, { liz: 'eeeee' })//http://www.jquery123.com/trigger/ 在_trigger 中将 'selectedPageChange'转为了小写
+        
+            this._on('selectedpagechange',this.options.selectedPageChange);//事件类型都必须是小写，因为在jqueryui内部将名称转为小写    
         },
         _toggleSelect: function (oldIndex, newIndex) {
             $(this.pageIndexs[oldIndex-1]).toggleClass('select', false);//一般jquery 自带的函数基本不用考虑异常处理，jquery 基本都带异常处理

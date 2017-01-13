@@ -66,6 +66,10 @@
 <!--<div id='page'></div>
 
 	</div>-->
+    <!--var reg=/\S+/g;
+    str='vm.pageModel page';//vm.pageModel 对应数据结构实例   page 对应控件名称 可以用一个指令初始化所有控件（或许可以直接截取tag获得名称）
+    str.match(reg)
+    =>["vm.pageModel", "page"]-->
     <aui-page page-model="vm.pageModel"></aui-page>
      <!--<aui-page page-model="vm.pageModel1"></aui-page>-->
 </div>
@@ -97,6 +101,7 @@
                 displayCount: 9,
                 selectedPageChange: function (event, data) {//$(':page').on(page:selectedPageChange,function(event,data){})
                     //this 为控件所在DOM 元素 
+                    debugger;
                 }
             });
     vm.pageModel1= initService.initPageModel();
