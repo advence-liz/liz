@@ -825,11 +825,11 @@
     };
 
     return function() {
-      context = this;
+      context = this;//封装后的function可以赋给一个对象OR apply bind
       args = arguments;
       timestamp = _.now();
       var callNow = immediate && !timeout;
-      if (!timeout) timeout = setTimeout(later, wait);
+      if (!timeout) timeout = setTimeout(later, wait);//因为这步所以later 中执行func 前需要判断是否为immediate
       if (callNow) {
         result = func.apply(context, args);
         context = args = null;

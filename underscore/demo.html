@@ -12,7 +12,9 @@
 	<script src="../dist/js/jquery.js"></script>
 	<!--<script src="../dist/js/jquery-ui.js"></script>
 	<script src="../dist/js/angular.js"></script>-->
-	<script src="./underscore.js"></script>
+	<!-- <script src="./underscore.js"></script> -->
+	<script src="./debounce.js"></script>
+
 	<style>
 
 	</style>
@@ -31,12 +33,15 @@
 	<script>
 // escape:/<%-([\s\S]+?)%>/g
 // evaluate:/<%([\s\S]+?)%>/g
-// interpolate:/<%=([\s\S]+?)%>/g
+// // interpolate:/<%=([\s\S]+?)%>/g
  function fun(){
-	console.log(_.now());
+	console.log(Date.now());
  }
- var lazy=_.debounce(fun,300)
- $(window).resize(lazy);
+//  var lazy=_.debounce(fun,300)
+//  $(window).resize(lazy);
+
+var lazy=debounce(fun,300)
+  $(window).resize(lazy);
      
     </script>
 </body>
