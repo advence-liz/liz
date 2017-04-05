@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+	<title>aui-scrolling</title>
+<!--
+	<link href="../dist/css/bootstrap.css" rel="stylesheet" />
+	<script src="../dist/js/jquery.js"></script>
+	<script src="../dist/js/angular.js"></script>-->
+	<link href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.2.8/angular.min.js"></script>
+	<script src="./directive/directive.js"></script>
+	<script src="./directive/scroll.directive.js"></script>
+	<style>
+
+	</style>
+</head>
+
+<body ng-app="app" ng-controller="MainCtrl as vm">
+	<div class="container-fluid">
+		<p>tempate</p>
+		<a href="http://www.phpchina.com/thread-221206-1-1.html">参考链接</a>
+		<div class="row">
+			<div class="col-md-12">
+				<div aui-scrolling list-name="vm.items"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h2 id="isHover"></h2>
+			</div>
+			<div class="col-md-12">
+				<input ng-model="vm.index" type="number" min="0" />
+				<button type="button" class="btn btn-default" data-ng-click="vm.indexChange(vm.index)">跳转到对应index</button>
+			</div>
+		</div>
+		<div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button type="button" id="btn" class="btn btn-default">改变items</button>
+					<button type="button" id="btn1" class="btn btn-default">改变selectedIndex</button>
+				</div>
+			</div>
+		</div>
+
+
+		<footer>© <a href="https://github.com/advence-liz">advence-liz</a></footer>
+	</div>
+
+	<script>
+		/**
+         * <div aui-scrolling time-label=" " title-label="" list-name=""></div>
+         * @prop titleLabel {String}
+         * @prop timeLabel {String}
+         * @prop listName {Array}  [{timeLabel:"***",titleLabel:"***"}]
+         */
+
+		(function (angular) {
+			'use strict';
+
+			angular.module('app', ['aui']);
+			angular.module('app').controller('MainCtrl', ControllerCtrl);
+
+			/** @ngInject */
+			function ControllerCtrl(window, $scope) {
+				var vm = this;
+				vm.author = 'liz';
+				vm.subject = 'angular';
+				vm.index = 0;
+				vm.items = new Array;
+				for (var i = 0; i < 10; i++) {
+					let time = "00:0" + i;
+					let title = "title" + i;
+					vm.items.push({ id: i, time: time, title: title })
+				}
+
+				vm.indexChange = function (index) {
+					$scope.$broadcast("srcollChange", index);
+				}
+
+			};
+
+			ControllerCtrl.$inject = ['$window', '$scope'];//
+		}(window.angular));
+	</script>
+</body>
+
+</html>

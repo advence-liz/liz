@@ -1,9 +1,6 @@
 (function () {
     'use strict';
-
-    angular
-        .module('aui', []);
-
+    angular.module('aui', []);
 } ());
 // init WidgetModel  Service 
 (function ($) {
